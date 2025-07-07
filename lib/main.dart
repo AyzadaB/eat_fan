@@ -1,3 +1,4 @@
+import 'package:eat_fun/screen/profile_page.dart';
 import 'package:eat_fun/screen/splash_screen_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SplashScreenPage(),
+      home: const ProfilePage(),
     );
   }
 }

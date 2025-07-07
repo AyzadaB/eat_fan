@@ -1,3 +1,5 @@
+import 'package:eat_fun/widgets/login_card.dart';
+import 'package:eat_fun/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,67 +11,48 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   List<bool> isSelected = [true, false];
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.asset('assets/images/Ellipse 1.png'),
-          Image.asset('assets/images/fastFood.png'),
-          Image.asset('assets/images/Ellipse 2.png'),
-          Image.asset('assets/images/logo.png', width: 250, height: 151),
-          Positioned(
-            top: 200,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              height: 434,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(17)),
-                color: Colors.red,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: [
-                    ToggleButtons(
-                      isSelected: isSelected,
-                      onPressed: (int index) {
-                        setState(() {
-                          for (int i = 0; i < isSelected.length; i++) {
-                            isSelected[i] = i == index;
-                          }
-                        });
-                      },
-                      borderRadius: BorderRadius.circular(17),
-                      fillColor: Color(0xffF8E0A0),
-                      selectedColor: Color(0xffBE0127),
-
-                      children: [
-                        Text(
-                          "Log In",
-                          style: TextStyle(
-                            fontFamily: 'Rosario',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            fontFamily: 'Rosario',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+      backgroundColor: Colors.white,
+      body: SizedBox.expand(
+        child: Stack(
+          children: [
+            Image.asset('assets/images/Ellipse 1.png'),
+            Image.asset('assets/images/fastFood.png'),
+            Image.asset('assets/images/Ellipse 2.png'),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 250,
+                height: 151,
               ),
             ),
-          ),
-        ],
+            Positioned(top: 170, child: LoginCard()),
+            Positioned(
+              bottom: 0,
+              child: Image.asset(
+                'assets/images/pizza.png',
+                width: 200,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Image.asset(
+                'assets/images/hamburger.png',
+                width: 100,
+                height: 100,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
