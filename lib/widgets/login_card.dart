@@ -17,7 +17,7 @@ class _LoginCardState extends State<LoginCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 30),
-      height: 450,
+      height: 475,
       width: 316,
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: const Color(0xCC766F6F)),

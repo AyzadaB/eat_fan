@@ -1,9 +1,14 @@
+import 'package:eat_fun/firebase_options.dart';
+import 'package:eat_fun/screen/login_page.dart';
 import 'package:eat_fun/screen/profile_page.dart';
-import 'package:eat_fun/screen/splash_screen_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:firebase_core/firebase_core.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const ProfilePage(),
+      home: const LoginPage(),
     );
   }
 }

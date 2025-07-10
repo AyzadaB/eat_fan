@@ -1,5 +1,4 @@
 import 'package:eat_fun/widgets/login_card.dart';
-import 'package:eat_fun/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,6 +16,7 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: SizedBox.expand(
         child: Stack(
           children: [
@@ -35,7 +35,7 @@ class LoginPageState extends State<LoginPage> {
             Positioned(
               bottom: 0,
               child: Image.asset(
-                'assets/images/pizza.png',
+                'assets/images/bigPizza.png',
                 width: 200,
                 height: 100,
                 fit: BoxFit.cover,

@@ -1,4 +1,8 @@
+import 'package:eat_fun/data/app_data.dart';
+import 'package:eat_fun/models/category_model.dart';
+import 'package:eat_fun/models/food_model.dart';
 import 'package:eat_fun/widgets/categories_card_widget.dart';
+import 'package:eat_fun/widgets/food_card_widget.dart';
 import 'package:eat_fun/widgets/menu_and_profile.dart';
 import 'package:eat_fun/widgets/search_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +18,14 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _searchController = TextEditingController();
   bool isSelected = false;
   int selectedIndex = -1;
+  int selectedCategoryIndex = 0;
 
-  final List<Map<String, String>> cardItems = [
-    {'icon': 'assets/images/pizzaIcon.png', 'label': "Pizza"},
-    {'icon': 'assets/images/burgerIcon.png', 'label': "Burger"},
-    {'icon': 'assets/images/salad.png', 'label': "Salad"},
-    {'icon': 'assets/images/dessertIcon.png', 'label': "Dessert"},
-    {'icon': 'assets/images/drinkIcon.png', 'label': "Drink"},
-  ];
+  List<FoodModel> get filteredFoodItems {
+    final selectedCategory = appCategories[selectedCategoryIndex].label;
+    return appFoodItems
+        .where((item) => item.category == selectedCategory)
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,20 +71,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 105,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 5,
+                    itemCount: appCategories.length,
                     itemBuilder: (context, index) {
-                      final item = cardItems[index];
-                      final isSelected = selectedIndex == index;
+                      final CategoryModel item = appCategories[index];
+                      final isSelected = selectedCategoryIndex == index;
                       return GestureDetector(
                         onTap: () {
                           setState(() {
-                            selectedIndex = index;
+                            selectedCategoryIndex = index;
+                            selectedIndex = -1;
                           });
                         },
                         child: CategoriesCardWidget(
                           isSelected: isSelected,
-                          iconPath: item['icon']!,
-                          label: item['label']!,
+                          iconPath: item.icon,
+                          label: item.label,
                         ),
                       );
                     },
@@ -92,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Burgers",
+                        appCategories[selectedCategoryIndex].label,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -104,55 +109,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       height: 240,
                       child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: filteredFoodItems.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           final isSelected = selectedIndex == index;
+                          final FoodModel item = filteredFoodItems[index];
                           return InkWell(
                             onTap: () {
                               setState(() {
                                 selectedIndex = index;
                               });
                             },
-                            child: Container(
-                              margin: EdgeInsets.only(left: 10),
-                              height: 200,
-                              width: 170,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors:
-                                      isSelected
-                                          ? [
-                                            Color(0xFFBE0127),
-                                            Color(0xFFF13A21),
-                                          ]
-                                          : [Colors.white, Colors.white],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  isSelected
-                                      ? BoxShadow(
-                                        color: Color(0xFFF13A21),
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(0, 4),
-                                      )
-                                      : BoxShadow(
-                                        color: Color.fromRGBO(
-                                          170,
-                                          163,
-                                          163,
-                                          0.247,
-                                        ),
-                                        blurRadius: 4,
-                                        spreadRadius: 5,
-                                        offset: Offset(0, 4),
-                                      ),
-                                ],
-                              ),
-                              child: Image.asset('assets/images/pizzaIcon.png'),
+                            child: FoodCardWidget(
+                              isSelected: isSelected,
+                              image: item.icon,
+                              label: item.label,
+                              rating: item.rating,
+                              price: item.price,
                             ),
                           );
                         },

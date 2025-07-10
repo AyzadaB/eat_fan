@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "859547246688",
+    "project_id": "eat-fun-auth",
+    "storage_bucket": "eat-fun-auth.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859547246688:android:ded161464939faf97b6305",
+        "android_client_info": {
+          "package_name": "com.example.eat_fun"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeLSidiLpH7GXvRemdoFDuwWq0eW7QeAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859547246688:android:260a433e0c6beb337b6305",
+        "android_client_info": {
+          "package_name": "com.example.eatfun"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeLSidiLpH7GXvRemdoFDuwWq0eW7QeAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
