@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_form.dart';
-import 'register_form.dart';
+import 'sugnUp_form.dart';
 
 class LoginCard extends StatefulWidget {
   const LoginCard({super.key});

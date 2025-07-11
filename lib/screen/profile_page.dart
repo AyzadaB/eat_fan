@@ -8,7 +8,9 @@ import 'package:eat_fun/widgets/search_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({super.key, required this.email, required this.password});
+  final String email;
+  final String password;
 
   @override
   _ProfilePageState createState() => _ProfilePageState();

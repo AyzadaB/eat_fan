@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:eat_fun/screen/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,24 +12,39 @@ class LoginForm extends StatelessWidget {
     final emailCtrl = TextEditingController();
     final passwordCtrl = TextEditingController();
 
-    Future<void> register({
+    Future<void> logIn({
       required String email,
       required String password,
     }) async {
       try {
-        final credential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-        if (credential.user != null) {
-          log(credential.user!.toString());
-        }
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+        try {
+          final credential = await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: email, password: password);
+          if (credential.user != null) {
+            log(credential.user!.email!);
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) => ProfilePage(
+                      email: credential.user!.email!,
+                      password: password,
+                    ),
+              ),
+              (route) => false,
+            );
+          } else {
+            log("мындай аккаут жок");
+          }
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'user-not-found') {
+            print('No user found for that email.');
+          } else if (e.code == 'wrong-password') {
+            print('Wrong password provided for that user.');
+          }
         }
       } catch (e) {
-        print(e);
+        log(e.toString());
       }
     }
 
@@ -68,13 +84,10 @@ class LoginForm extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
-                await register(
-                  email: emailCtrl.text,
-                  password: passwordCtrl.text,
-                );
-                emailCtrl.clear();
-                passwordCtrl.clear();
+                await logIn(email: emailCtrl.text, password: passwordCtrl.text);
               }
+              emailCtrl.clear();
+              passwordCtrl.clear();
             },
             child: const Text('Log In'),
           ),
